@@ -1,0 +1,23 @@
+<html>
+<head>
+    <link href="src/dart_proxy.html" rel="import">
+    @IMPORT_SCRIPTS@
+    <script>
+        function testNew(x) {
+            var y = new x();
+            y.pippo = "Salvatore";
+            y.hello(y.pippo);
+        }
+
+        function doSomething(y) {
+          y.name = "Rossi";
+          y.number = 40;
+          y.incrementBy(6);
+        }
+    </script>
+    @BOOTSTRAP@
+</head>
+<body>
+
+</body>
+</html>
