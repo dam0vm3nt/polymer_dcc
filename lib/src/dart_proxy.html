@@ -3,54 +3,12 @@
 
     (function(ProxyLib) {
 
-        ProxyLib.createProxy = function(handlers) {
-            return new Proxy(function(){},handlers);
-        }
-
-        ProxyLib.createProxy2 = function(target,handlers) {
-            var p2 = new Proxy(target,handlers);
-            console.log("P2 created ");
-            return p2;
-        }
-
-        ProxyLib.createDartTypeProxy = function(factory,props,mets) {
-
-            var dartObject = factory();
-
-            var handlers = {
-                'get' : function(target,pname,recv) {
-                    if (props[pname]) {
-                        return props[pname].dartGetter(dartObject);
-                    }
-                    else {
-                        return target[pname];
-                    }
-                },
-                'set' : function(target, property, value, receiver) {
-                    if (props[property]) {
-                        props[property].dartSetter(dartObject,value);
-                    } else {
-                        target[property] = value;
-                    }
-                },
-                'ownKeys' : function(target) {
-                    return Object.getOwnPropertyNames(props);
-                }
-            };
+        ProxyLib.createDartTypeProxy = function(factory) {
 
 
-            class X {
-                constructor() {
-                  console.log("CIAO");
-                }
-            };
-
-
-            return new Proxy(X,{
+            return new Proxy(function(){},{
                 'construct' : function(target,args,newTarget) {
-                    var x = new target(args);
-                    x['_xxx_dart_obj_']=dartObject;
-                    return new Proxy(x,handlers);
+                  return factory();
                 }
             });
 
@@ -256,11 +214,11 @@
             return true;
           },
           'ownKeys' : function(target) {
-            return Object.getOwnPropertyNames(target).concat(dartPropertySet.getOwnPropertyNames());
+            return Object.getOwnPropertyNames(target).concat(Object.getOwnPropertyNames(dartPropertySet));
           },
           'getOwnPropertyDescriptor' : function(target,prop) {
             if (dartPropertySet.hasOwnProperty(prop)) {
-              return  { configurable: false, enumerable: !dartMethodSet.hasOwnProperty(prop), value: ES6._dartGetter(instance,prop) };
+              return  { configurable: true, enumerable:true, value: ES6._dartGetter(instance,prop) };
             } else {
               return Object.getOwnPropertyDescriptor(target,prop);
             }

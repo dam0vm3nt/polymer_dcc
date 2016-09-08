@@ -79,4 +79,8 @@ void main() {
   print("name : ${obj.name}");
   print("num : ${obj.number}");
 
+  JsObject Y= createJsWrapper(() => new MyObjectReflectiveTest());
+  MyObjectTest t = convertToDart(context.callMethod('doSomething2',[Y]));
+  print("name : ${t.name}");
+  print("numb : ${t.number}");
 }

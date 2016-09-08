@@ -5,6 +5,11 @@ final JsObject _ProxyLib = context["ProxyLib"];
 final JsObject _polymerInteropDartES6 = _ProxyLib['Basic'];
 final JsObject _polymerDartES6 = _ProxyLib['Objects'];
 
+JsObject createJsWrapper(Function factory) {
+  return _ProxyLib['createDartTypeProxy'].apply([() => convertToJs(factory())]);
+}
+
+
 abstract class JsDartObject {
   JsObject get jsObject;
 }
