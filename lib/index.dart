@@ -1,5 +1,23 @@
 import 'dart_proxy.dart';
 import 'dart:js';
+import 'dart:html';
+import 'package:polymer_element/polymer_element.dart' as polymer;
+
+class MyDartTag extends polymer.Element {
+
+  String something = "hi";
+
+  MyDartTag()  {
+    print("Hi");
+  }
+
+  hello(Event ev,details) {
+    print("hello");
+  }
+
+
+}
+
 
 
 class MyDartClazza {
@@ -16,13 +34,21 @@ class MyDartClazza {
 
 }
 
-class MyObjectTest {
+abstract class MyObjectTest extends JsDartObject {
   String name;
   int number = 0;
 
   int incrementBy(int val) {
     number += val;
     return number;
+  }
+
+  void helloMe(Event ev,details) {
+    print("Hello here!");
+  }
+
+  void beforeRegister() {
+    jsObject['is']='my-tag';
   }
 }
 
@@ -37,6 +63,12 @@ class MyObjectReflectiveTest extends MyObjectTest with JsReflectiveDartObject {
   Map<String,Function> _methods= {
     'incrementBy' : (MyObjectTest self,List args) {
       return self.incrementBy(args[0]);
+    },
+    'helloMe' : (MyObjectTest self, List args) {
+      return self.helloMe(args[0], args[1]);
+    },
+    'beforeRegister' : (MyObjectTest self,List args) {
+      self.beforeRegister();
     }
   };
 
@@ -70,6 +102,14 @@ class MyObjectReflectiveTest extends MyObjectTest with JsReflectiveDartObject {
   }
 }
 
+JsObject MyTag() =>  createJsWrapper(() => new MyObjectReflectiveTest());
+
+void polymerMyTag(JsFunction polymer) {
+  //polymer.apply([MyTag()]);
+
+  JsObject Y= createJsWrapper(() => new MyObjectReflectiveTest());
+  context['Polymer'].apply([Y]);
+}
 
 void main() {
 
@@ -83,4 +123,6 @@ void main() {
   MyObjectTest t = convertToDart(context.callMethod('doSomething2',[Y]));
   print("name : ${t.name}");
   print("numb : ${t.number}");
+
+  //context['Polymer'].apply([Y]);
 }

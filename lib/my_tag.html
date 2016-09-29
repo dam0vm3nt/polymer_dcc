@@ -1,0 +1,68 @@
+<link href="src/polymer/polymer-element.html" rel="import">
+<dom-module id='my-tag'>
+  <template>
+    <div on-click='hello'>CLICCA</div>
+  </template>
+</dom-module>
+<script>
+
+require(['polymer_dcc','dart_sdk','polymer_element_dart'],function(polymer_dcc,sdk,polymer_element_dart) {
+
+  console.log("ENTER");
+
+  function inject(x) {
+    let res = x;
+    while (Object.getPrototypeOf(x) != Function.prototype ) {
+      x = Object.getPrototypeOf(x);
+    }
+/*
+    let y = class extends Polymer.Element {
+        constructor() {
+          super();
+          print("This is injected constructor");
+        }
+    };
+*/
+    Object.setPrototypeOf(x.prototype,Polymer.Element.prototype);
+    Object.setPrototypeOf(x,Polymer.Element);
+
+    return res;
+
+  }
+
+
+  class MyTag extends Polymer.Element {
+
+    static get is() {
+      return 'my-tag';
+    }
+
+    static get config() {
+      return {};
+    }
+
+    constructor() {
+      super();
+    }
+
+
+  }
+
+
+  class MyTag2 /*extends polymer_dcc.index.MyDartTag*/ extends Polymer.Element {
+
+    static get is() {
+      return 'my-tag';
+    }
+
+    static get config() {
+      return {};
+    }
+
+  }
+
+  sdk.dart.registerExtension(MyTag,polymer_dcc.index.MyDartTag);
+  customElements.define( MyTag.is,polymer_dcc.index.MyDartTag);
+
+});
+</script>

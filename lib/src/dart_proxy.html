@@ -5,12 +5,32 @@
 
         ProxyLib.createDartTypeProxy = function(factory) {
 
+            var prot = factory();
+            var p =  new Proxy(function(){},{
 
-            return new Proxy(function(){},{
                 'construct' : function(target,args,newTarget) {
                   return factory();
+                },
+                'get' : function(target,propertyName) {
+                  if (propertyName=='prototype') {
+                    console.log("Doing proto");
+                    return prot;
+                  } else {
+                    return target[propertyName];
+                  }
+                },
+                'set' : function(target,propertyName,val) {
+                  if (propertyName=='prototype') {
+                    prot = val;
+                  } else {
+                    target[propertyName] = val;
+                  }
                 }
             });
+
+            p.prototype=new p();
+
+            return p;
 
 
         }

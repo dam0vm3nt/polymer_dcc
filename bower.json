@@ -1,0 +1,12 @@
+{
+  "name": "polymer_dcc",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dart-lang/polymer-elements",
+  "authors": [
+    "Polymer.dart Authors <web-ui-dev@dartlang.org>"
+  ],
+  "private": true,
+  "dependencies": {
+    "polymer": "polymer#2.0-preview"
+  }
+}
