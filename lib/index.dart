@@ -4,6 +4,9 @@ import 'package:polymer_element/polymer_element.dart' as polymer;
 
 
 abstract class MyDartTag extends polymer.Element {
+  static const TAG='my-tag';
+
+  static const Map CONFIG = const {};
 
   int count=0;
 

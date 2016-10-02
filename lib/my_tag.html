@@ -29,18 +29,18 @@ require(['polymer_dcc'],function(x) {
 
 
 
-    function polymerize(type,tag,config) {
+    function polymerize(type) {
       let m = mixin(Polymer.Element,type);
 
         Object.defineProperty(m,'is',{
           get: function() {
-            return tag;
+            return type.TAG;
           }
         });
 
         Object.defineProperty(m,'config',{
           get: function() {
-            return config;
+            return type.CONFIG;
           }
         });
 
@@ -48,7 +48,7 @@ require(['polymer_dcc'],function(x) {
 
     }
 
-    let m = polymerize(x.index.MyDartTag,'my-tag',{});
+    let m = polymerize(x.index.MyDartTag);
   customElements.define( m.is,m);
 
 });
