@@ -1,14 +1,8 @@
-import 'dart_proxy.dart';
 import 'dart:js';
 import 'dart:html';
 import 'package:polymer_element/polymer_element.dart' as polymer;
 
-class Tag {
-  final String name;
-  const Tag(this.name);
-}
 
-@Tag("my-tag")
 abstract class MyDartTag extends polymer.Element {
 
   int count=0;
