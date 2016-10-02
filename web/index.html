@@ -9,38 +9,10 @@
 
     <!-- @ IMPORT_SCRIPTS @ -->
     <script>
-        function testNew(x) {
-            var y = new x();
-            y.pippo = "Salvatore";
-            y.hello(y.pippo);
-        }
 
-        function doSomething(y) {
-          y.name = "Rossi";
-          y.number = 40;
-          y.incrementBy(6);
-          console.log("Y:"+y);
-          console.log("Y.proto:"+y.prototype);
-          console.log("Props:"+Object.getOwnPropertyNames(y));
-          console.dir(y);
-          for (var k in y) {
-            console.log("PROP : "+k+" => "+y[k]);
-          }
-        }
-
-        function doSomething2(Y) {
-          var y = new Y();
-          y.name="Valentino";
-          y.number=6;
-          y.incrementBy(40);
-          return y;
-        }
-
-        document.currentScript=this;
-
-        require(['polymer_dcc'],function(x) {
-          x.index.main();
-        });
+//        require(['my_dart_tag','polymer_dcc'],function(_,x) {
+//          x.index.main();
+//        });
 
           // @ BOOTSTRAP @
     </script>

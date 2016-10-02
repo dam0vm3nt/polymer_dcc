@@ -1,68 +1,55 @@
 <link href="src/polymer/polymer-element.html" rel="import">
 <dom-module id='my-tag'>
   <template>
-    <div on-click='hello'>CLICCA</div>
+    <div on-click='hello'>CLICCA {{count}}</div>
   </template>
 </dom-module>
 <script>
 
-require(['polymer_dcc','dart_sdk','polymer_element_dart'],function(polymer_dcc,sdk,polymer_element_dart) {
+require(['polymer_dcc'],function(x) {
 
-  console.log("ENTER");
+  console.log("ENTER2");
 
-  function inject(x) {
-    let res = x;
-    while (Object.getPrototypeOf(x) != Function.prototype ) {
-      x = Object.getPrototypeOf(x);
-    }
-/*
-    let y = class extends Polymer.Element {
-        constructor() {
-          super();
-          print("This is injected constructor");
-        }
+
+
+  function mixin(A,B) {
+    let res = class extends A {
+      constructor() {
+        super();
+        this['new'].apply(this);
+      }
     };
-*/
-    Object.setPrototypeOf(x.prototype,Polymer.Element.prototype);
-    Object.setPrototypeOf(x,Polymer.Element);
-
+    for (let p of Object.getOwnPropertyNames(B.prototype) ) {
+      if (p!='constructor') {
+        Object.defineProperty(res.prototype,p,Object.getOwnPropertyDescriptor(B.prototype,p));
+      }
+    }
     return res;
-
   }
 
 
-  class MyTag extends Polymer.Element {
 
-    static get is() {
-      return 'my-tag';
+    function polymerize(type,tag,config) {
+      let m = mixin(Polymer.Element,type);
+
+        Object.defineProperty(m,'is',{
+          get: function() {
+            return tag;
+          }
+        });
+
+        Object.defineProperty(m,'config',{
+          get: function() {
+            return config;
+          }
+        });
+
+        return m;
+
     }
 
-    static get config() {
-      return {};
-    }
-
-    constructor() {
-      super();
-    }
-
-
-  }
-
-
-  class MyTag2 /*extends polymer_dcc.index.MyDartTag*/ extends Polymer.Element {
-
-    static get is() {
-      return 'my-tag';
-    }
-
-    static get config() {
-      return {};
-    }
-
-  }
-
-  sdk.dart.registerExtension(MyTag,polymer_dcc.index.MyDartTag);
-  customElements.define( MyTag.is,polymer_dcc.index.MyDartTag);
+    let m = polymerize(x.index.MyDartTag,'my-tag',{});
+  customElements.define( m.is,m);
 
 });
 </script>
