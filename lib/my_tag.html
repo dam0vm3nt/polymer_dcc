@@ -1,8 +1,26 @@
 <link href="src/polymer/polymer-element.html" rel="import">
 <dom-module id='my-tag'>
   <template>
+    <style>
+      .b1 {
+        border: 1px solid black;
+        margin:1em;
+        padding:1em;
+      }
+    </style>
+    <div>
+      f1 : [[data1.field1]] , f2 : [[data1.field2]]
+    </div>
     <div on-click='hello'>[[something]] CLICCA [[count]]</div>
-    <input type='input' value='{{something::change}}'>
+    <input type='input' value='{{data1.field2::change}}'>
+    <div on-click='addAnother'>Add brother</div>
+    <div class='b1'>
+      <dom-repeat items='[[elems]]'>
+        <template>
+          <div>[[index]] : [[item.field1]] - [[item.field2]]</div>
+        </template>
+      </dom-repeat>
+    </div>
   </template>
 </dom-module>
 <script>
