@@ -1,55 +1,15 @@
 <link href="src/polymer/polymer-element.html" rel="import">
 <dom-module id='my-tag'>
   <template>
-    <div on-click='hello'>CLICCA {{count}}</div>
+    <div on-click='hello'>[[something]] CLICCA {{count}}</div>
   </template>
 </dom-module>
 <script>
 
-require(['polymer_dcc'],function(x) {
+require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
 
-  console.log("ENTER2");
+  polymerize(x.my_tag.MyDartTag);
 
-
-
-  function mixin(A,B) {
-    let res = class extends A {
-      constructor() {
-        super();
-        this['new'].apply(this);
-      }
-    };
-    for (let p of Object.getOwnPropertyNames(B.prototype) ) {
-      if (p!='constructor') {
-        Object.defineProperty(res.prototype,p,Object.getOwnPropertyDescriptor(B.prototype,p));
-      }
-    }
-    return res;
-  }
-
-
-
-    function polymerize(type) {
-      let m = mixin(Polymer.Element,type);
-
-        Object.defineProperty(m,'is',{
-          get: function() {
-            return type.TAG;
-          }
-        });
-
-        Object.defineProperty(m,'config',{
-          get: function() {
-            return type.CONFIG;
-          }
-        });
-
-        return m;
-
-    }
-
-    let m = polymerize(x.index.MyDartTag);
-  customElements.define( m.is,m);
 
 });
 </script>
