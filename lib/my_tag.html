@@ -1,15 +1,12 @@
 <link href="src/polymer/polymer-element.html" rel="import">
 <dom-module id='my-tag'>
   <template>
-    <div on-click='hello'>[[something]] CLICCA {{count}}</div>
+    <div on-click='hello'>[[something]] CLICCA [[count]]</div>
+    <input type='input' value='{{something::change}}'>
   </template>
 </dom-module>
 <script>
-
-require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
-
-  polymerize(x.my_tag.MyDartTag);
-
-
-});
+  require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
+    polymerize(x.my_tag.MyDartTag);
+  });
 </script>

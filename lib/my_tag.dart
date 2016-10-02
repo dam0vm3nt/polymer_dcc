@@ -20,7 +20,9 @@ abstract class MyDartTag extends polymer.Element {
     print("hello :${ev} , ${details}");
     print("My Parent : ${this.parentNode}");
     print("Bounding box ${this.getBoundingClientRect()}");
-    set('count',count+1);
+
+    // Magical getters and setters in action here !
+    count = count + 1;
     print("Count is : ${count}");
   }
 
