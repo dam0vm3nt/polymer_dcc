@@ -20,15 +20,23 @@ class MyData {
 abstract class MyDartTag extends polymer.Element {
   static const TAG='my-tag';
 
-  static const Map CONFIG = const {};
+  static JsObject CONFIG = new JsObject.jsify({
+    'observers' : [
+      'countChanged(count)'
+    ]
+  });
 
   int count=0;
 
   MyData data1;
 
+  void countChanged(int newVal) {
+    print("COUNT CHANGED : ${newVal} - ${count}");
+  }
+
   String something = "hi";
 
-  List elems = [
+  List cippi = [
     new MyData(field1:'a1',field2:'b1'),
     new MyData(field1:'a2',field2:'b2'),
     new MyData(field1:'a3',field2:'b3'),
@@ -37,9 +45,7 @@ abstract class MyDartTag extends polymer.Element {
 
   MyDartTag()  {
     print("Hi");
-    data1 = new MyData()
-      ..field1 = "uno"
-      ..field2 = "due";
+    data1 = new MyData(field1: 'uno',field2: 'due');
   }
 
   factory MyDartTag.create() => new Element.tag(TAG);
@@ -50,10 +56,11 @@ abstract class MyDartTag extends polymer.Element {
     print("My Parent : ${this.parentNode}");
     print("Bounding box ${this.getBoundingClientRect()}");
 
-
-
     // Magical getters and setters in action here !
     count = count + 1;
+    cippi.add(new MyData(field1:'x',field2:'y'));
+    // Equivalent to notify (less performant)
+    cippi = cippi;
     print("Count is : ${count}");
   }
 
