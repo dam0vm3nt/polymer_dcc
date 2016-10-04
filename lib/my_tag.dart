@@ -18,7 +18,7 @@ class MyData {
   }
 }
 
-abstract class MyDartTag extends PolymerElement {
+class MyDartTag extends PolymerElement {
   static const TAG='my-tag';
 
   static JsObject CONFIG = new JsObject.jsify({
@@ -31,21 +31,22 @@ abstract class MyDartTag extends PolymerElement {
   int get count=> _count;
   set count(int v) {
     print("SETTER !!! Setting count ${v}");
-    //logMe(v);
     _count = v;
   }
 
-  logMe(v) async {
-    await new Future.delayed(new Duration(milliseconds:5000));
-    print("Delayed setted log :${v}");
+  _logMe(v)  {
+    new Future.delayed(new Duration(milliseconds:5000)).then((_) {
+      print("Delayed setted log :${v}");
+    });
   }
 
   MyData data1;
-/*
-  void connectedCallback() {
+
+  void attached() {
     print("ATTACHED!!");
+
   }
-*/
+
   void countChanged(int newVal) {
     print("COUNT CHANGED : ${newVal} - ${count}");
   }
@@ -62,7 +63,7 @@ abstract class MyDartTag extends PolymerElement {
   MyDartTag()  {
     print("Hi");
     data1 = new MyData(field1: 'uno',field2: 'due');
-    count = 0;
+    count = 1;
   }
 
   factory MyDartTag.create() => new Element.tag(TAG);
@@ -85,10 +86,20 @@ abstract class MyDartTag extends PolymerElement {
     // Equivalent to notify (less performant)
     cippi = cippi;
     print("Count is : ${count}");
+    new MyLogger().logMe("Bye!!!");
+    //_logMe("ciao");
   }
 
   addAnother(Event ev,details) {
     this.parentNode.append(new MyDartTag.create());
   }
 
+}
+
+class MyLogger {
+  logMe(v)  {
+    new Future.delayed(new Duration(milliseconds:5000)).then((_) {
+      print("Delayed setted log :${v}");
+    });
+  }
 }
