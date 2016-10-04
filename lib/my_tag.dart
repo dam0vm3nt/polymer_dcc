@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'dart:js';
 import 'dart:html';
-import 'package:polymer_element/polymer_element.dart' as polymer;
+import 'package:polymer_element/polymer_element.dart';
 
 class MyData {
   String _f;
@@ -17,7 +18,7 @@ class MyData {
   }
 }
 
-abstract class MyDartTag extends polymer.Element {
+abstract class MyDartTag extends PolymerElement {
   static const TAG='my-tag';
 
   static JsObject CONFIG = new JsObject.jsify({
@@ -26,10 +27,25 @@ abstract class MyDartTag extends polymer.Element {
     ]
   });
 
-  int count=0;
+  int _count;
+  int get count=> _count;
+  set count(int v) {
+    print("SETTER !!! Setting count ${v}");
+    //logMe(v);
+    _count = v;
+  }
+
+  logMe(v) async {
+    await new Future.delayed(new Duration(milliseconds:5000));
+    print("Delayed setted log :${v}");
+  }
 
   MyData data1;
-
+/*
+  void connectedCallback() {
+    print("ATTACHED!!");
+  }
+*/
   void countChanged(int newVal) {
     print("COUNT CHANGED : ${newVal} - ${count}");
   }
@@ -46,6 +62,7 @@ abstract class MyDartTag extends polymer.Element {
   MyDartTag()  {
     print("Hi");
     data1 = new MyData(field1: 'uno',field2: 'due');
+    count = 0;
   }
 
   factory MyDartTag.create() => new Element.tag(TAG);
@@ -57,7 +74,13 @@ abstract class MyDartTag extends polymer.Element {
     print("Bounding box ${this.getBoundingClientRect()}");
 
     // Magical getters and setters in action here !
+    if (count == null) {
+      count = 0;
+    }
     count = count + 1;
+    if (cippi == null) {
+      cippi = [];
+    }
     cippi.add(new MyData(field1:'x',field2:'y'));
     // Equivalent to notify (less performant)
     cippi = cippi;
