@@ -1,6 +1,6 @@
-<link href="src/polymer/polymer-element.html" rel="import">
-<link href='src/paper-button/paper-button.html' rel='import'>
-<link href='src/paper-styles/paper-styles.html' rel='import'>
+<link href="../polymer_element/src/polymer/polymer-element.html" rel="import">
+<link href='../polymer_element/src/paper-button/paper-button.html' rel='import'>
+<link href='../polymer_element/src/paper-styles/paper-styles.html' rel='import'>
 
 <dom-module id='my-tag'>
   <template>
@@ -28,7 +28,7 @@
   </template>
 </dom-module>
 <script>
-  require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
+  require(['polymer_dcc/polymer_dcc','polymer_element/polymerize'],function(x,polymerize) {
     polymerize(x.my_tag.MyDartTag);
   });
 </script>

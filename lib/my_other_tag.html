@@ -1,5 +1,5 @@
-<link href="src/polymer/polymer-element.html" rel="import">
-<link href="my_tag.html" rel="import">
+<link href="../polymer_element/src/polymer/polymer-element.html" rel="import">
+<link href="../polymer_dcc/my_tag.html" rel="import">
 
 <dom-module id='my-other-tag'>
   <template>
@@ -10,7 +10,7 @@
   </template>
 </dom-module>
 <script>
-  require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
+  require(['polymer_dcc/polymer_dcc','polymer_element/polymerize'],function(x,polymerize) {
     polymerize(x.my_tag.MyOtherTag);
   });
 </script>
