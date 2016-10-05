@@ -20,7 +20,6 @@ class MyData {
 
 @PolymerRegister('my-other-tag',template:'my_other_tag.html')
 class MyOtherTag extends PolymerElement {
-  static get TAG => 'my-other-tag';
   void connectedCallback() {
     super.connectedCallback();
     print("OTHER CONNECTED");
@@ -29,7 +28,6 @@ class MyOtherTag extends PolymerElement {
 
 @PolymerRegister('my-tag',template:'my_tag.html')
 class MyDartTag extends PolymerElement {
-  static get TAG => 'my-tag';
   static Config get CONFIG => new Config(observers: ['countChanged(count)']);
 
   int _count;
@@ -73,7 +71,7 @@ class MyDartTag extends PolymerElement {
     //count = 1;
   }
 
-  factory MyDartTag.create() => new Element.tag(TAG);
+  factory MyDartTag.create() => new Element.tag('my-tag');
 
   hello(Event ev, details) {
     ev.preventDefault();
