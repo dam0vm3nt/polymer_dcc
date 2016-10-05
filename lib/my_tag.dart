@@ -18,10 +18,17 @@ class MyData {
   }
 }
 
+class MyOtherTag extends PolymerElement {
+  static get TAG => 'my-other-tag';
+  void connectedCallback() {
+    super.connectedCallback();
+    print("OTHER CONNECTED");
+  }
+}
 
 class MyDartTag extends PolymerElement {
-  static const TAG = 'my-tag';
-  static Config CONFIG = new Config(observers: ['countChanged(count)']);
+  static get TAG => 'my-tag';
+  static Config get CONFIG => new Config(observers: ['countChanged(count)']);
 
   int _count;
   int get count => _count;
@@ -41,7 +48,7 @@ class MyDartTag extends PolymerElement {
   void connectedCallback() {
     super.connectedCallback();
     print("ATTACHED!!");
-    count=0;
+    count = 0;
   }
 
   void countChanged(int newVal) {
@@ -60,7 +67,7 @@ class MyDartTag extends PolymerElement {
     print("Hi");
     data1 = new MyData(field1: 'uno', field2: 'due');
     // Setter works too
-    set('count',1);
+    set('count', 1);
     //count = 1;
   }
 

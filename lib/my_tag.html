@@ -1,4 +1,6 @@
 <link href="src/polymer/polymer-element.html" rel="import">
+<link href='src/paper-button/paper-button.html' rel='import'>
+<link href='src/paper-styles/paper-styles.html' rel='import'>
 
 <dom-module id='my-tag'>
   <template>
@@ -12,9 +14,10 @@
     <div>
       f1 : [[data1.field1]] , f2 : [[data1.field2]]
     </div>
-    <div on-click='hello'>[[something]] CLICCA [[count]]</div>
+    <paper-button on-click='hello' raised>[[something]] CLICCA [[count]]</paper-button>
     <input type='input' value='{{data1.field2::keydown}}'>
     <div on-click='addAnother'>Add brother</div>
+    <paper-button on-click='addAnother'> ADD WITH PAPER BuTTON</paper-button>
     <div class='b1'>
       <dom-repeat items='{{cippi}}' as='pino'>
         <template>

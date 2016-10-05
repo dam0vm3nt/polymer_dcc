@@ -1,0 +1,16 @@
+<link href="src/polymer/polymer-element.html" rel="import">
+<link href="my_tag.html" rel="import">
+
+<dom-module id='my-other-tag'>
+  <template>
+    <style>
+    </style>
+    <my-tag></my-tag>
+    <my-tag></my-tag>
+  </template>
+</dom-module>
+<script>
+  require(['polymer_dcc','src/polymerize'],function(x,polymerize) {
+    polymerize(x.my_tag.MyOtherTag);
+  });
+</script>
