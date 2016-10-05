@@ -18,6 +18,7 @@ class MyData {
   }
 }
 
+@PolymerRegister('my-other-tag',template:'my_other_tag.html')
 class MyOtherTag extends PolymerElement {
   static get TAG => 'my-other-tag';
   void connectedCallback() {
@@ -26,6 +27,7 @@ class MyOtherTag extends PolymerElement {
   }
 }
 
+@PolymerRegister('my-tag',template:'my_tag.html')
 class MyDartTag extends PolymerElement {
   static get TAG => 'my-tag';
   static Config get CONFIG => new Config(observers: ['countChanged(count)']);
