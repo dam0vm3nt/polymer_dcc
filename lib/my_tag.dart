@@ -28,8 +28,6 @@ class MyOtherTag extends PolymerElement {
 
 @PolymerRegister('my-tag',template:'my_tag.html')
 class MyDartTag extends PolymerElement {
-  static Config get CONFIG => new Config(observers: ['countChanged(count)']);
-
   int _count;
   int get count => _count;
   set count(int v) {
@@ -51,6 +49,7 @@ class MyDartTag extends PolymerElement {
     count = 0;
   }
 
+  @Observe('count')
   void countChanged(int newVal) {
     print("COUNT CHANGED : ${newVal} - ${count}");
   }
