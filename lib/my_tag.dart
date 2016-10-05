@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:js';
 import 'dart:html';
 import 'package:polymer_element/polymer_element.dart';
 
@@ -18,13 +17,6 @@ class MyData {
   }
 }
 
-@PolymerRegister('my-other-tag',template:'my_other_tag.html')
-class MyOtherTag extends PolymerElement {
-  void connectedCallback() {
-    super.connectedCallback();
-    print("OTHER CONNECTED");
-  }
-}
 
 @PolymerRegister('my-tag',template:'my_tag.html')
 class MyDartTag extends PolymerElement {
