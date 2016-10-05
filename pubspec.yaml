@@ -3,5 +3,5 @@ description: A polymer port for DCC
 version: 0.1.0
 dependencies:
  logging: any
- polymer_element:
-   path: ../polymer_element
+ polymer_element: any
+#   path: ../polymer_element
